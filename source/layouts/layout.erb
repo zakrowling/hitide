@@ -9,11 +9,11 @@
     <title><%= current_page.data.title || "Middleman" %></title>
     <link href="https://fonts.googleapis.com/css?family=Concert+One" rel="stylesheet">
     <%= stylesheet_link_tag "app" %>
-    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-    <%= javascript_include_tag "app" %>
   </head>
-  <body onload="requestTideData(3391);"">
+  <body onload="requestTideData(3374);"">
     <%= yield %>
   </body>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <%= javascript_include_tag "app" %>
 </html>
 
