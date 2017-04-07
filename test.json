@@ -1,0 +1,41 @@
+{  
+   "ReqPlace":"3552",
+   "Ok":true,
+   "ReqUnit":"m",
+   "ReqStart":"20170404",
+   "ReqDays":"2",
+   "ApiVersion":"3.00",
+   "Name":"Gold Coast Seaway",
+   "TimeZone":"AEST",
+   "PlaceUnit":"m",
+   "Turns":[  
+      {  
+         "HorL":"H",
+         "Date":"20170404",
+         "Minute":138,
+         "Height":"1.50",
+         "DLS":false
+      },
+      {  
+         "HorL":"L",
+         "Date":"20170404",
+         "Minute":547,
+         "Height":"0.42",
+         "DLS":false
+      },
+      {  
+         "HorL":"H",
+         "Date":"20170404",
+         "Minute":505,
+         "Height":"1.05",
+         "DLS":false
+      },
+      {  
+         "HorL":"L",
+         "Date":"20170404",
+         "Minute":1239,
+         "Height":"0.46",
+         "DLS":false
+      }
+   ]
+}
