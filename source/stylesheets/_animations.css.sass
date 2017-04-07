@@ -1,0 +1,40 @@
+// Animations
+
+@keyframes fillAction 
+  0%
+    @include prefix(transform, translate(0, 800px))
+  100%
+    @include prefix(transform, translate(0, 0px))
+  
+@keyframes waveAction 
+  0%
+    @include prefix(transform, translate(-150px, 0))
+  100%
+    @include prefix(transform, translate(0, 0))
+
+@keyframes arrowBounce
+  0%
+    @include prefix(transform, translateY(0))
+  50%
+    @include prefix(transform, translateY(-30px))
+  100%
+    @include prefix(transform, translateY(0))
+  
+@keyframes fadeUp
+  0%
+    @include prefix(transform, translateY(10px))
+    opacity: 0
+  80%
+    @include prefix(transform, translateY(10px))
+    opacity: 0
+  100%
+    @include prefix(transform, translateY(0))
+    opacity: 1
+  
+@keyframes borderFade
+  0%
+    border-color: rgba(3,155,228,0)
+  70%
+    border-color: rgba(3,155,228,0)
+  100%
+    border-color: rgba(3,155,228,1)
