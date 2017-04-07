@@ -1,7 +1,7 @@
 var placeID = 3391;
 
 requestTideData(placeID);
-
+  
 $('select').change(function(){
   placeID = this.value;
   requestTideData(placeID);
@@ -13,6 +13,18 @@ if (window.location.hash.length) {
   var hash = window.location.hash.substring(1);
   requestTideData(hash);
 }
+
+$('.header .menu').click(function(){
+  $('.tide-page').toggleClass('inactive');
+  $('.tide-menu').toggleClass('active');
+});
+
+$('.tide-menu li').click(function(){
+  $('.tide-page').removeClass('inactive');
+  $('.tide-menu').removeClass('active');
+  $('html, body').animate({scrollTop : 0},500);
+	return false;
+});
 
 var date = new Date();
 var getYear = date.getFullYear().toString().substr(0,4);
@@ -62,9 +74,9 @@ var readableDateToday = '@, # $ &'
 function requestTideData(placeID) {
 
   var liveURL = "http://tidespy.com/api/tideturns?pn=" + placeID + "&unit=m&start=" + dateToday + "&days=1&key=nts0E6lKamjZPze2SIyUA89F4gfv5TuX";
-  var testURL = "js/test.json";
+  var testURL = "https://raw.githubusercontent.com/zakrowling/hitide/master/test.json";
 
-  $.getJSON(liveURL, function(data) {
+  $.getJSON(testURL, function(data) {
     $.each(data, function(key, value) {
       if (key == 'Name') {
         $('.tide-page h1').text(removeBrackets(value));
@@ -78,11 +90,12 @@ function requestTideData(placeID) {
             // Check if Low or High Tide
             if (turnKey == 'HorL') {
               tideType = 'High Tide';
-              tideMovement = '(Falling)';
+              tideRising = false;
               if (turnValue == 'L') {
                 tideType = 'Low Tide';
-                tideMovement = '(Rising)';
+                tideRising = true;
               }
+              $('.tide-page h3 strong').text(tideType);
             }
 
             // Check what current tide is
@@ -90,7 +103,7 @@ function requestTideData(placeID) {
             counter++;
             if (turnKey == 'Minute') {
               if (getCurrentMinutes > turnValue) {
-                $('.tide-page h3 span').text('at ' + timeConvert(turnValue));
+                $('.tide-page h3 span').text(' at ' + timeConvert(turnValue));
               } else {
                 currentTide = false;
               }
@@ -99,7 +112,7 @@ function requestTideData(placeID) {
             if (currentTide) {
               // Check current tide height
               if (turnKey == 'Height') {
-                $('.tide-page h3').text(turnValue + 'm ' + tideType + ' ' + tideMovement);
+                $('.tide-page h3 em').text(turnValue + ' metres');
               }
             } else {
               return false;
