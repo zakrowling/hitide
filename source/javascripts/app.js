@@ -74,6 +74,7 @@ function requestTideData(placeID) {
   var testURL = "https://raw.githubusercontent.com/zakrowling/hitide/master/test.json";
 
   var nextTide = false;
+  var currentTide = true;
 
   $.getJSON(liveURL, function(data) {
     $.each(data, function(key, value) {
@@ -88,16 +89,21 @@ function requestTideData(placeID) {
 
             // Check if Low or High Tide
             if (turnKey == 'HorL') {
-              tideType = 'High Tide';
-              tideMovement = 'Low Tide From';
-              $('.tide-page .arrow').removeClass('up');
-              if (turnValue == 'L') {
-                tideType = 'Low Tide';
-                tideMovement = 'High Tide From';
-                $('.tide-page .arrow').addClass('up');
+              if (currentTide) {
+                if (turnValue == 'H') {
+                  tideType = 'Low Tide';
+                  tideMovement = 'High Tide From';
+                  $('.tide-page .arrow').addClass('up');
+                }
+                if (turnValue == 'L') {
+                   tideType = 'High Tide';
+                  tideMovement = 'Low Tide From';
+                  $('.tide-page .arrow').removeClass('up');
+                }
+                //console.log(turnValue + tideType);
+                $('.tide-page h3 strong').text('It\u0027s ' + tideType);
+                $('.tide-page .arrow .next-tide').text(tideMovement);
               }
-              $('.tide-page h3 strong').text('It\u0027s ' + tideType);
-              $('.tide-page .arrow .next-tide').text(tideMovement);
             }
 
             // Chech which day it is
@@ -109,7 +115,6 @@ function requestTideData(placeID) {
             }
 
             // Check what current tide is
-            currentTide = true;
             counter++;
             if (turnKey == 'Minute') {
               if (getCurrentMinutes > turnValue) {
@@ -124,8 +129,8 @@ function requestTideData(placeID) {
               if (turnKey == 'Height') {
                 $('.tide-page h3 em').text(turnValue + ' metres');
                 if (turnValue.substring(0,1) == '-') { tideSize = '80%'; }
-                if (turnValue.substring(0,1) == '0') { tideSize = '75%'; }
-                if (turnValue.substring(0,1) == '1') { tideSize = '60%'; }
+                if (turnValue.substring(0,1) == '0') { tideSize = '65%'; }
+                if (turnValue.substring(0,1) == '1') { tideSize = '50%'; }
                 if (turnValue.substring(0,1) == '2') { tideSize = '40%'; }
                 if (turnValue.substring(0,1) >= '3') { tideSize = '20%'; }
                 $('.tide-card .tide').css('top',tideSize);
