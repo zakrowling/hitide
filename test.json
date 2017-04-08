@@ -1,48 +1,69 @@
 {  
-   "ReqPlace":"3552",
+   "ReqPlace":"1341",
    "Ok":true,
    "ReqUnit":"m",
-   "ReqStart":"20170404",
+   "ReqStart":"20170408",
    "ReqDays":"2",
    "ApiVersion":"3.00",
-   "Name":"Gold Coast Seaway",
-   "TimeZone":"AEST",
-   "PlaceUnit":"m",
+   "Name":"South Fork",
+   "TimeZone":"EDT",
+   "PlaceUnit":"ft",
    "Turns":[  
       {  
+         "HorL":"L",
+         "Date":"20170408",
+         "Minute":270,
+         "Height":"-0.02",
+         "DLS":true
+      },
+      {  
          "HorL":"H",
-         "Date":"20170404",
-         "Minute":138,
-         "Height":"1.50",
-         "DLS":false
+         "Date":"20170408",
+         "Minute":611,
+         "Height":"0.32",
+         "DLS":true
       },
       {  
          "HorL":"L",
-         "Date":"20170404",
-         "Minute":547,
-         "Height":"0.42",
-         "DLS":false
+         "Date":"20170408",
+         "Minute":1014,
+         "Height":"-0.03",
+         "DLS":true
       },
       {  
          "HorL":"H",
-         "Date":"20170404",
-         "Minute":505,
-         "Height":"1.05",
-         "DLS":false
+         "Date":"20170408",
+         "Minute":1355,
+         "Height":"0.33",
+         "DLS":true
       },
       {  
          "HorL":"L",
-         "Date":"20170404",
-         "Minute":1239,
-         "Height":"0.46",
-         "DLS":false
+         "Date":"20170409",
+         "Minute":318,
+         "Height":"-0.03",
+         "DLS":true
       },
       {  
          "HorL":"H",
-         "Date":"20170504",
-         "Minute":120,
-         "Height":"5.00",
-         "DLS":false
+         "Date":"20170409",
+         "Minute":655,
+         "Height":"0.33",
+         "DLS":true
+      },
+      {  
+         "HorL":"L",
+         "Date":"20170409",
+         "Minute":1058,
+         "Height":"-0.05",
+         "DLS":true
+      },
+      {  
+         "HorL":"H",
+         "Date":"20170409",
+         "Minute":1399,
+         "Height":"0.34",
+         "DLS":true
       }
    ]
 }
