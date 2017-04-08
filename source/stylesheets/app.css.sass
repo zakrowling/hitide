@@ -3,15 +3,15 @@
 
 
 // City colours
-$background-cairns: #dc5c46
-$background-brisbane: #edc50a // Yellow
+$background-cairns: #dc5c46 // Blood orange
+$background-brisbane: #d7b100 // Gold
 $background-goldcoast: #e240a7 // Pink
 $background-sydney: #153253 // Dark navy
 $background-melbourne: #6a1bae // Purple
 $background-adelaide: #01b250 // Green
 $background-perth: #7a6b70 // Charcoal
 $background-darwin: #ea2033 // Red
-$background-hobart: #00dbaf // Turquoise
+$background-hobart: #00bc96 // Turquoise
 
 // Variables
 $base-font: 22px "Concert One", "Helvetica", Arial, Sans-serif
@@ -161,6 +161,7 @@ body
           fill: $water-color
         .arrow
           position: absolute
+          font-size: 1.2rem
           top: 70px
           text-align: center
           width: 100%
@@ -183,6 +184,14 @@ body
           &.up
             &:after
               @include prefix(transform, rotate(180deg))
+    .footer
+      margin-top: 3rem
+      font:  0.7rem 'Helvetica', Arial, Sans-serif
+      color: rgba(255,255,255,0.7)
+      a
+        padding-bottom: 0.1rem
+        &:hover
+          border-bottom: 1px #fff solid
 
   .tide-menu
     display: none
