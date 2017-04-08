@@ -2,3 +2,7 @@
 @mixin prefix($property, $parameters...)
   @each $prefix in -webkit-, -moz-, -ms-, -o-, ""
     #{$prefix}#{$property}: $parameters
+   
+@mixin small-touch
+  @media only screen and (max-width: 50em)
+    @content
