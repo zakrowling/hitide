@@ -36,6 +36,13 @@
          "Minute":1239,
          "Height":"0.46",
          "DLS":false
+      },
+      {  
+         "HorL":"H",
+         "Date":"20170504",
+         "Minute":120,
+         "Height":"5.00",
+         "DLS":false
       }
    ]
 }
