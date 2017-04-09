@@ -84,13 +84,6 @@ function requestTideData(placeID) {
       }
       if (key == 'Turns') {
         $.each(value, function(turnKeys, turnValues) {
-          //console.log(turnValues);
-          
-          /* Map object to array and sort
-          var turnArray = $.map(turnValues, function(value, key) { return value });
-          turnArray.push(turnArray.shift());
-          console.log(turnArray);
-          */
           $.each(turnValues, function(turnKey, turnValue) {
             //console.log(turnValue + ' ' + currentTide);
 
