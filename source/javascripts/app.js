@@ -88,6 +88,7 @@ function requestTideData(placeID) {
             //console.log(turnValue + ' ' + currentTide);
 
             // Check if Low or High Tide
+            // Hacky reverse high / low tide due to object ordering
             if (turnKey == 'HorL') {
               if (currentTide) {
                 if (turnValue == 'H') {
