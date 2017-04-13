@@ -14,14 +14,16 @@ $('.tide-menu li').click(function(){
   $('.tide-page').removeClass('inactive');
   $('.tide-menu').removeClass('active');
   $('html, body').animate({scrollTop : 0},500);
+  //window.location.hash = getLocationId;
   requestTideData(getLocationId);
-  window.location.hash = getLocationId;
 });
 
+/*
 if (window.location.hash.length) {
   var hash = window.location.hash.substring(1);
   requestTideData(hash);
 }
+*/
 
 var date = new Date();
 var getYear = date.getFullYear().toString().substr(0,4);
