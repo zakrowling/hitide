@@ -89,15 +89,15 @@ function requestTideData(placeID) {
 
             // Check if Low or High Tide
             if (turnKey == 'HorL') {
-              tideType = 'High Tide';
-              tideMovement = 'Low Tide From';
-              $('.tide-page .arrow').removeClass('up');
+              tideType = 'Rising Low Tide';
+              tideMovement = 'High Tide From';
+              $('.tide-page .arrow').addClass('up');
               if (turnValue == 'L') {
-                tideType = 'Low Tide';
-                tideMovement = 'High Tide From';
-                $('.tide-page .arrow').addClass('up');
+                tideType = 'Falling High Tide';
+                tideMovement = 'Low Tide From';
+                $('.tide-page .arrow').removeClass('up');
               }
-              $('.tide-page h3 strong').text('It\u0027s ' + tideType);
+              $('.tide-page h3 strong').text(tideType);
               $('.tide-page .arrow .next-tide').text(tideMovement);
             }
 
@@ -127,8 +127,10 @@ function requestTideData(placeID) {
                 if (turnValue.substring(0,1) == '-') { tideSize = '80%'; }
                 if (turnValue.substring(0,1) == '0') { tideSize = '75%'; }
                 if (turnValue.substring(0,1) == '1') { tideSize = '60%'; }
-                if (turnValue.substring(0,1) == '2') { tideSize = '40%'; }
-                if (turnValue.substring(0,1) >= '3') { tideSize = '20%'; }
+                if (turnValue.substring(0,1) == '2') { tideSize = '50%'; }
+                if (turnValue.substring(0,1) >= '3') { tideSize = '40%'; }
+                if (turnValue.substring(0,1) >= '4') { tideSize = '30%'; }
+                if (turnValue.substring(0,1) >= '5') { tideSize = '20%'; }
                 $('.tide-card .tide').css('top',tideSize);
               }
             } else {
