@@ -12,18 +12,17 @@ $('.tide-menu li').click(function(){
 
   $('body').removeClass().addClass(getLocation);
   $('.tide-page').removeClass('inactive');
+  $('.tide-page h1').text('Loading...');
   $('.tide-menu').removeClass('active');
   $('html, body').animate({scrollTop : 0},500);
-  //window.location.hash = getLocationId;
   requestTideData(getLocationId);
+  window.location.hash = getLocationId;
 });
 
-/*
 if (window.location.hash.length) {
   var hash = window.location.hash.substring(1);
   requestTideData(hash);
 }
-*/
 
 var date = new Date();
 var getYear = date.getFullYear().toString().substr(0,4);
@@ -72,13 +71,12 @@ var readableDateToday = '@, # $ &'
 
 function requestTideData(placeID) {
 
-  var liveURL = "http://tidespy.com/api/tideturns?pn=" + placeID + "&unit=m&start=" + dateToday + "&days=2&key=nts0E6lKamjZPze2SIyUA89F4gfv5TuX";
+  var liveURL = "http://hitide.me/ba-simple-proxy.php?url=http%3A%2F%2Ftidespy.com%2Fapi%2Ftideturns%3Fpn%3D" + placeID + "%26unit%3Dm%26start%3D" + dateToday + "%26days%3D2%26key%3Dnts0E6lKamjZPze2SIyUA89F4gfv5TuX&mode=native&full_headers=1&full_status=1";
   var testURL = "https://raw.githubusercontent.com/zakrowling/hitide/master/test.json";
-
+  var devURL = "http://tidespy.com/api/tideturns?pn=" + placeID + "&unit=m&start=" + dateToday + "&days=2&key=nts0E6lKamjZPze2SIyUA89F4gfv5TuX";
   var nextTide = false;
-  var currentTide = true;
 
-  $.getJSON(liveURL, function(data) {
+  $.getJSON(devURL, function(data) {
     $.each(data, function(key, value) {
       if (key == 'Name') {
         $('.tide-page h1').text(removeBrackets(value));
@@ -86,24 +84,21 @@ function requestTideData(placeID) {
       }
       if (key == 'Turns') {
         $.each(value, function(turnKeys, turnValues) {
+          counter = 0;
           $.each(turnValues, function(turnKey, turnValue) {
-            //console.log(turnValue + ' ' + currentTide);
 
             // Check if Low or High Tide
-            // Hacky reverse high / low tide due to object ordering
             if (turnKey == 'HorL') {
-              if (currentTide) {
-                if (turnValue == 'H') {
-                  tideType = 'Low Tide';
-                  tideMovement = 'High Tide From';
-                  $('.tide-page .arrow').addClass('up');
-                }
-                if (turnValue == 'L') {
-                  tideType = 'High Tide';
-                  tideMovement = 'Low Tide From';
-                  $('.tide-page .arrow').removeClass('up');
-                }
+              tideType = 'High Tide';
+              tideMovement = 'Low Tide From';
+              $('.tide-page .arrow').removeClass('up');
+              if (turnValue == 'L') {
+                tideType = 'Low Tide';
+                tideMovement = 'High Tide From';
+                $('.tide-page .arrow').addClass('up');
               }
+              $('.tide-page h3 strong').text('It\u0027s ' + tideType);
+              $('.tide-page .arrow .next-tide').text(tideMovement);
             }
 
             // Chech which day it is
@@ -115,11 +110,11 @@ function requestTideData(placeID) {
             }
 
             // Check what current tide is
+            currentTide = true;
+            counter++;
             if (turnKey == 'Minute') {
               if (getCurrentMinutes > turnValue) {
                 $('.tide-page h3 span').text(' at ' + timeConvert(turnValue));
-                $('.tide-page h3 strong').text('It\u0027s ' + tideType);
-                $('.tide-page .arrow .next-tide').text(tideMovement);
               } else {
                 currentTide = false;
               }
@@ -130,30 +125,21 @@ function requestTideData(placeID) {
               if (turnKey == 'Height') {
                 $('.tide-page h3 em').text(turnValue + ' metres');
                 if (turnValue.substring(0,1) == '-') { tideSize = '80%'; }
-                if (turnValue.substring(0,1) == '0') { tideSize = '65%'; }
-                if (turnValue.substring(0,1) == '1') { tideSize = '50%'; }
+                if (turnValue.substring(0,1) == '0') { tideSize = '75%'; }
+                if (turnValue.substring(0,1) == '1') { tideSize = '60%'; }
                 if (turnValue.substring(0,1) == '2') { tideSize = '40%'; }
                 if (turnValue.substring(0,1) >= '3') { tideSize = '20%'; }
                 $('.tide-card .tide').css('top',tideSize);
               }
             } else {
-              tideMinutes = timeConvert(turnValue);
-              if (turnKey == 'Minute') {
-                if (!nextTide) {
-                  $('.tide-page .arrow .next-tide-time').text(tideMinutes);
-                  nextTide = true;
-                } else {
-                  if (!currentTideDay) {
-                    $('.tide-page .arrow .next-tide-time').text('Tomorrow');
-                    return false;
-                  }
-                }
+              if ((turnKey == 'Minute') && (nextTide == false)) {
+                $('.tide-page .arrow .next-tide-time').text(timeConvert(turnValue));
+                nextTide = true;
               }
 
-              //if (currentTideDay == false) {
-              //  $('.tide-page .arrow .next-tide-time').text('Tomorrow');
-              //  return false;
-              //}
+              if (currentTideDay) {
+                return false;
+              }
             }
           });
         });
