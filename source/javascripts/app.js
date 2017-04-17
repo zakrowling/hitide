@@ -13,6 +13,7 @@ $('.tide-menu li').click(function(){
   $('body').removeClass().addClass(getLocation);
   $('.tide-page').removeClass('inactive');
   $('.tide-page h1').text('Loading...');
+  $('.tide-page .next-tide-time').text('Tomorrow');
   $('.tide-menu').removeClass('active');
   $('html, body').animate({scrollTop : 0},500);
   requestTideData(getLocationId);
@@ -76,10 +77,11 @@ function requestTideData(placeID) {
   var devURL = "http://tidespy.com/api/tideturns?pn=" + placeID + "&unit=m&start=" + dateToday + "&days=2&key=nts0E6lKamjZPze2SIyUA89F4gfv5TuX";
   var nextTide = false;
 
-  $.getJSON(devURL, function(data) {
+  $.getJSON(liveURL, function(data) {
     $.each(data, function(key, value) {
       if (key == 'Name') {
-        $('.tide-page h1').text(removeBrackets(value));
+        $('.tide-page h1').text(cleanDestinations(value));
+        $('.tide-page h1:contains("Brighton")').text('Adelaide');
         $('.tide-page h2').text(readableDateToday);
       }
       if (key == 'Turns') {
@@ -87,18 +89,24 @@ function requestTideData(placeID) {
           counter = 0;
           $.each(turnValues, function(turnKey, turnValue) {
 
+
+            // Check what current tide is
+            currentTide = true;
+
             // Check if Low or High Tide
-            if (turnKey == 'HorL') {
-              tideType = 'Rising Low Tide';
-              tideMovement = 'High Tide From';
-              $('.tide-page .arrow').addClass('up');
-              if (turnValue == 'L') {
+            if (currentTide) {
+              if (turnKey == 'HorL') {
                 tideType = 'Falling High Tide';
                 tideMovement = 'Low Tide From';
                 $('.tide-page .arrow').removeClass('up');
+                if (turnValue == 'L') {
+                  tideType = 'Rising Low Tide';
+                  tideMovement = 'High Tide From';
+                  $('.tide-page .arrow').addClass('up');
+                }
+                $('.tide-page h3 strong').text(tideType);
+                $('.tide-page .arrow .next-tide').text(tideMovement);
               }
-              $('.tide-page h3 strong').text(tideType);
-              $('.tide-page .arrow .next-tide').text(tideMovement);
             }
 
             // Chech which day it is
@@ -109,8 +117,6 @@ function requestTideData(placeID) {
               } 
             }
 
-            // Check what current tide is
-            currentTide = true;
             counter++;
             if (turnKey == 'Minute') {
               if (getCurrentMinutes > turnValue) {
@@ -168,8 +174,10 @@ function timeConvert(n) {
   return rhours + ':' + rminutes + ampm;  
 }
 
-function removeBrackets(input) {
+function cleanDestinations(input) {
   return input
+    .replace("Bar", "")
+    .replace("Seaway", "")
     .replace(/{.*?}/g, "")
     .replace(/\[.*?\]/g, "")
     .replace(/<.*?>/g, "")
